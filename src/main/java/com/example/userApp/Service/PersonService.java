@@ -31,7 +31,10 @@ public class PersonService {
             return "Error saving data: " + e.getMessage();
         }
     }
-
+    
+    public Person savePerson(Person person) {
+        return repository.save(person);
+    }
     public String deleteById(Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);

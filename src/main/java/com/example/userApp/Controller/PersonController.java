@@ -45,4 +45,27 @@ public class PersonController {
     public String delete(@PathVariable Long id) {
         return service.deleteById(id);
     }
+    
+    @GetMapping("/addDummy")
+    public String addDummyData() {
+        Person p1 = new Person();
+        p1.setName("John Doe");
+        p1.setAge(30);
+        p1.setSex("Male");
+        p1.setCountry("USA");
+        p1.setState("California");
+        p1.setDistrict("Los Angeles");
+
+        Person p2 = new Person();
+        p2.setName("Jane Smith");
+        p2.setAge(28);
+        p2.setSex("Female");
+        p2.setCountry("India");
+        p2.setState("Tamil Nadu");
+        p2.setDistrict("Chennai");
+
+        service.savePerson(p1);
+        service.savePerson(p2);
+        return "record added";
+}
 }
