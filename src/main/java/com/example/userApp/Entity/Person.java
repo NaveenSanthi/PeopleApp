@@ -1,15 +1,17 @@
 package com.example.userApp.Entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 @Entity
 public class Person {
 	@Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private int age;
-    private String gender;
+    private String sex;
     private String country;
     private String state;
     private String district;
@@ -31,11 +33,11 @@ public class Person {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getGender() {
-		return gender;
+	public String getSex() {
+		return sex;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	public String getCountry() {
 		return country;
@@ -55,6 +57,7 @@ public class Person {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
+    
     
     
 }

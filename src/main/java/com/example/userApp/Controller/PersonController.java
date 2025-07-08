@@ -1,10 +1,12 @@
 package com.example.userApp.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,30 +17,32 @@ import com.example.userApp.Entity.Person;
 import com.example.userApp.Service.PersonService;
 
 @RestController
-@RequestMapping("/people")
+@RequestMapping("/api/person")
 public class PersonController {
-
     private final PersonService service;
 
     public PersonController(PersonService service) {
         this.service = service;
     }
 
-    @GetMapping
-    public List<Person> getPeople(
-            @RequestParam(required = false) String country,
-            @RequestParam(required = false) String state,
-            @RequestParam(required = false) String district) {
-        return service.getPeople(country, state, district);
+    // 1. Filter API
+    @PostMapping("/filter")
+    public List<Person> filter(@RequestBody Map<String, String> request) {
+        String country = request.get("country");
+        String state = request.get("state");
+        String district = request.get("district");
+        return service.filterPersons(country, state, district);
     }
 
-    @PutMapping
-    public List<Person> updatePeople(@RequestBody List<Person> people) {
-        return service.updatePeople(people);
+    // 2. Save API
+    @PostMapping("/saveAll")
+    public String saveAll(@RequestBody List<Person> people) {
+        return service.saveAll(people);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePerson(@PathVariable Long id) {
-        service.deletePerson(id);
+    // 3. Delete API
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        return service.deleteById(id);
     }
 }
