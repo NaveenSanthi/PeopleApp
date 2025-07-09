@@ -1,4 +1,5 @@
-package config;
+package com.example.userApp.config;
+
 
 
 import org.springframework.context.annotation.Bean;
@@ -23,3 +24,4 @@ public class CorsConfig {
         };
     }
 }
+
